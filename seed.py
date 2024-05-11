@@ -14,10 +14,7 @@ fake = Faker()
 if __name__ == '__main__':
     if session.query(Teacher).count() == 0:
         for _ in range(3):
-            teacher = Teacher(
-                first_name=fake.first_name(),
-                last_name=fake.last_name()
-            )
+            teacher = Teacher(first_name=fake.first_name(), last_name=fake.last_name())
             session.add(teacher)
         session.commit()
 
@@ -47,11 +44,7 @@ if __name__ == '__main__':
             first_name = fake.first_name()
             last_name = fake.last_name()
             group_id = random.randint(1, 3)
-            student = Student(
-                first_name=first_name,
-                last_name=last_name,
-                group_id=group_id
-            )
+            student = Student(first_name=first_name, last_name=last_name, group_id=group_id)
             session.add(student)
         session.commit()
 
