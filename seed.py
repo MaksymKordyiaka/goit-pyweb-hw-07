@@ -12,6 +12,23 @@ session = Session()
 fake = Faker()
 
 if __name__ == '__main__':
+
+    if session.query(Group).count() == 0:
+        groups = ["Group A", "Group B", "Group C"]
+        for group_name in groups:
+            group = Group(group_name=group_name)
+            session.add(group)
+        session.commit()
+
+    if session.query(Student).count() == 0:
+        for _ in range(30):
+            first_name = fake.first_name()
+            last_name = fake.last_name()
+            group_id = random.randint(1, 3)
+            student = Student(first_name=first_name, last_name=last_name, group_id=group_id)
+            session.add(student)
+        session.commit()
+
     if session.query(Teacher).count() == 0:
         for _ in range(3):
             teacher = Teacher(first_name=fake.first_name(), last_name=fake.last_name())
@@ -30,22 +47,6 @@ if __name__ == '__main__':
         for subject_name, teacher_id in subjects.items():
             subject = Subject(subject_name=subject_name, teacher_id=teacher_id)
             session.add(subject)
-        session.commit()
-
-    if session.query(Group).count() == 0:
-        groups = ["Group A", "Group B", "Group C"]
-        for group_name in groups:
-            group = Group(group_name=group_name)
-            session.add(group)
-        session.commit()
-
-    if session.query(Student).count() == 0:
-        for _ in range(30):
-            first_name = fake.first_name()
-            last_name = fake.last_name()
-            group_id = random.randint(1, 3)
-            student = Student(first_name=first_name, last_name=last_name, group_id=group_id)
-            session.add(student)
         session.commit()
 
     if session.query(Grade).count() == 0:
